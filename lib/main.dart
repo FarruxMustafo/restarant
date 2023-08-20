@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home:const  MyHomePage(),
     );
   }
 }
@@ -53,10 +53,10 @@ class SplashScreenState extends State<MyHomePage> {
   @override  
   void initState() {  
     super.initState();  
-    Timer(Duration(seconds: 3),  
+    Timer(const Duration(seconds: 3),  
             ()=>Navigator.pushReplacement(context,  
             MaterialPageRoute(builder:  
-                (context) => HomeScreen()  
+                (context) => const HomeScreen()  
             )  
          )  
     );  
@@ -64,6 +64,7 @@ class SplashScreenState extends State<MyHomePage> {
   @override  
   Widget build(BuildContext context) {  
     return Container(
+      
       color:color,
       child: Expanded(
         child: Stack(children: [
