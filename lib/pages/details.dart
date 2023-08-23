@@ -1,57 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:restarant/consts/consts.dart';
 
-
-
 class DetailsPage extends StatelessWidget {
   final int selectedItemIndex;
-  const DetailsPage( this.selectedItemIndex, {super.key});
+  const DetailsPage(this.selectedItemIndex, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-height: double.infinity,
-      decoration:
-         const  BoxDecoration(
-           color: color, 
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/detailfon.png"))),
-              child: myBody(),
+      height: double.infinity,
+      decoration: const BoxDecoration(
+          color: Color(0xff2A5270),
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage("assets/detailfon.png"))),
+      child: myBody(),
     );
   }
 
-
-
-
-
-
-
-Widget myBody(){
-  return Container(
-    color: Colors.white,
-    margin: EdgeInsets.only(top: 70, right: 40),
-    child: Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(meals[selectedItemIndex].name)],),
-        Positioned(
+  Widget myBody() {
+    return Container(
+      color: Colors.white,
+      margin: EdgeInsets.only(top: 70, right: 30),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          details(meals[selectedItemIndex]),
+          Positioned(
             top: -80,
             right: -40,
-           
-            
-            child: Image.asset(meals[selectedItemIndex].imageUrl,
-            width: 240,
-            fit: BoxFit.cover,
-            
-            
+            child: Image.asset(
+              meals[selectedItemIndex].imageUrl,
+              width: 220,
+              fit: BoxFit.cover,
             ),
-            
           ),
-    ],),
-  );
-}
+        ],
+      ),
+    );
+  }
+
+  Widget details(Meal meal) {
+    return  Padding(
+      padding: const  EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          const SizedBox(height: 120,),
+         Text(
+            meal.name,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+          
+          ),
+          const SizedBox(height: 16,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            
+            children: [
+              Row(
+                          children: [
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset("assets/travel.png")),
+                           const  Text(
+                                " 12 k",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
+                        ),
+                         Row(
+                          children: [
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset("assets/travel.png")),
+                          const   Text(
+                                " 12 kal",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
+                        ),
+                         Row(
+                          children: [
+                            SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Image.asset("assets/travel.png")),
+                           const  Text(
+                              " 12 kal",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
+                        ),
+          ],),
+          const SizedBox(height: 10,),
+          Text(
+            
+            meals[selectedItemIndex].details,
+            style: TextStyle(height: 1.4),
+            
+            )
+        ],
+      ),
+    );
+  }
 }
