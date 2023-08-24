@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restarant/consts/provider.dart';
 
 import 'package:restarant/pages/dishes.dart';
 
@@ -33,59 +36,42 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Row(
         children: [
           NavigationRail(
-            leading: Column(
-              children: [
-                const SizedBox(
-                  height: 164,
-                ),
-                ToggleButtons(
-                  direction: Axis.vertical,
-                  renderBorder: false,
-                  onPressed: (int index) {
-                    setState(() {
-                      langs[index].isActive = true;
-                    });
-                  },
-                  isSelected: langs.map((e) => e.isActive).toList(),
-                  children: [
-                    langButton(langs[0]),
-                    langButton(langs[1]),
-                    langButton(langs[2])
-                  ],
-                ),
-              ],
-            ),
-            minWidth: 40,
+            leading:langBuild(),
+            minWidth: 60,
             onDestinationSelected: (int index) {
-              setState(() {
-                langs.forEach((element) {
-                  element.isActive = false;
-                });
-
-                langs[index].isActive=true;
-              });
+            setState(() {
+              
+               _selectedINdex=index;
+            
+            });
             },
-            groupAlignment: 0.7,
+            groupAlignment: 0.3,
+            
             labelType: NavigationRailLabelType.all,
             selectedIndex: _selectedINdex,
+        
+            useIndicator: false,
             selectedLabelTextStyle:
-                const TextStyle(color: Colors.white, fontSize: 20),
+                const TextStyle(color: Colors.white, fontSize: 28),
             unselectedLabelTextStyle:
-                const TextStyle(color: Colors.white70, fontSize: 15),
+                const TextStyle(color: Colors.white70, fontSize: 20),
             backgroundColor: const Color(0xff193B55),
-            destinations: const [
+            destinations:  [
               NavigationRailDestination(
-                  icon: SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("Блюда"))),
+              
+                indicatorColor: Colors.transparent,
+              
+                  icon: const SizedBox(),
+                  label: RotatedBox(quarterTurns: -1, child: Text("dishes".tr()))),
               NavigationRailDestination(
-                  icon: SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("Блюда"))),
+                  icon:const  SizedBox(),
+                  label: RotatedBox(quarterTurns: -1, child: Text("drinks").tr())),
               NavigationRailDestination(
-                  icon: SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("Блюда"))),
+                  icon: const SizedBox(),
+                  label: RotatedBox(quarterTurns: -1, child: Text("salads".tr()))),
               NavigationRailDestination(
-                  icon: SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("Блюда"))),
+                  icon: const SizedBox(),
+                  label: RotatedBox(quarterTurns: -1, child: Text("fast_food".tr()))),
             ],
           ),
           Expanded(child: pages[_selectedINdex]),
@@ -111,4 +97,75 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  
+  
+
+
+ Widget langBuild(){
+    final langProvider=Provider.of<LangProvider>(context, listen:false);
+
+return Column(
+              children: [
+                const SizedBox(
+                  height: 160,
+                ),
+
+                ToggleButtons(
+                  highlightColor:Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  borderColor: Colors.transparent,
+                  fillColor: Colors.transparent,
+                  direction: Axis.vertical,
+                  renderBorder: false,
+                    onPressed: (int index) {
+                    setState(() {
+                        setState(() {
+                for (var element in langs) {
+                  element.isActive = false;
+                
+                }
+                switch (index){
+                  case 0:
+                  {
+                    context.setLocale(const Locale("uz","UZ"));
+                    langProvider.langChanged();
+
+                  }
+                  break;
+                  case 1:
+                  {
+                    context.setLocale(Locale("ru","RU"));
+                    langProvider.langChanged();
+
+                  }
+                  break;
+                  case 2:
+                  {
+                    context.setLocale(Locale("en","US"));
+                    langProvider.langChanged();
+
+                  }
+                  break;
+                }
+                 langs[index].isActive = true;
+
+
+
+                        
+              }
+                        );
+                    });
+                  },
+                  isSelected: langs.map((e) => e.isActive).toList(),
+                  children: [
+                    langButton(langs[0]),
+                    langButton(langs[1]),
+                    langButton(langs[2])
+                  ],
+                ),
+              ],
+            );
+ }
+
+
 }

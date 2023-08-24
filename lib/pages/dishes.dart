@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restarant/consts/consts.dart';
+import 'package:restarant/consts/provider.dart';
 import 'package:restarant/pages/details.dart';
 
 class DishesPage extends StatefulWidget {
@@ -17,6 +20,7 @@ class _DishesPageState extends State<DishesPage> {
   
   @override
   Widget build(BuildContext context) {
+     
     return WillPopScope(
       onWillPop: (){
         isSlected?
@@ -29,28 +33,41 @@ class _DishesPageState extends State<DishesPage> {
 
         
       },
-      child: isSlected
-          ? DetailsPage(selectedItemIndex)
-          : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: GridView.builder(
-                      itemCount: meals.length,
-                      scrollDirection: Axis.vertical,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              mainAxisExtent: 350,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 10),
-                      itemBuilder: (BuildContext context, int index) {
-                        return card(meals[index], context, index);
-                      }),
+      child: Consumer<LangProvider>(builder: (context, data, child){
+        return   SafeArea(
+        child: isSlected
+            ? DetailsPage(selectedItemIndex)
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                   Text("title".tr()),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: GridView.builder(
+                            itemCount: meals.length,
+                            scrollDirection: Axis.vertical,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1,
+                                    mainAxisExtent: 350,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 10),
+                            itemBuilder: (BuildContext context, int index) {
+                              return card(meals[index], context, index);
+                            }),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+      );
+      } 
+      )
+      
+      
+    
     );
   }
 
@@ -100,14 +117,12 @@ class _DishesPageState extends State<DishesPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Color(0xff1E2022))),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                      Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Narxi:",
+                         Text(
+                          "cost".tr(),
                           style:
                               TextStyle(fontSize: 17, color: Color(0xff1E2022)),
                         ),
@@ -156,29 +171,41 @@ class _DishesPageState extends State<DishesPage> {
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10,),
+                  
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [ 
                         SizedBox(
-                          width: 40,
-                          height: 40,
+                          width: 50,
+                          height: 50,
                           child: Image.asset('assets/plus.png'),
                         ),
-                        InkWell(
-                          child: SizedBox(
-                            height: 40,
-                            child: Image.asset("assets/buttoncha.png"),
-                          ),
-                          onTap: (){
+                        FloatingActionButton.extended(
+                        backgroundColor:Color(0xff175B8F),
+
+
+                          label: Text("more".tr(), style: TextStyle(color: Colors.white, ),),
+                          
+                          
+                          onPressed: (){
                             setState(() {
                               isSlected=true;
                               selectedItemIndex=index;
                             });
-                          },
-                        )
+                          },)
+                        // InkWell(
+                        //   child: SizedBox(
+                        //     height: 40,
+                        //     child: Image.asset("assets/buttoncha.png"),
+                        //   ),
+                        //   onTap: (){
+                        //     setState(() {
+                        //       isSlected=true;
+                        //       selectedItemIndex=index;
+                        //     });
+                        //   },
+                        // )
                       ],
                     )
                   ],
