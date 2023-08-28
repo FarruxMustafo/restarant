@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:restarant/consts/consts.dart';
 
@@ -25,12 +26,12 @@ class DetailsPage extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
-          details(meals[selectedItemIndex]),
+          details(mealsUz[selectedItemIndex]),
           Positioned(
             top: -80,
             right: -40,
             child: Image.asset(
-              meals[selectedItemIndex].imageUrl,
+              mealsUz[selectedItemIndex].imageUrl,
               width: 220,
               fit: BoxFit.cover,
             ),
@@ -47,7 +48,7 @@ class DetailsPage extends StatelessWidget {
         children: [
           const SizedBox(height: 120,),
          Text(
-            meal.name,
+            meal.name.tr(),
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
           
           ),
@@ -95,8 +96,8 @@ class DetailsPage extends StatelessWidget {
           ],),
           const SizedBox(height: 10,),
           Text(
-            
-            meals[selectedItemIndex].details,
+            textAlign:TextAlign.left ,
+            mealsUz[selectedItemIndex].details,
             style: TextStyle(height: 1.4),
             
             )

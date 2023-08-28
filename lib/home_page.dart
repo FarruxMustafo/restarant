@@ -16,10 +16,10 @@ class HomeScreen extends StatefulWidget {
 
 int _selectedINdex = 0;
 List<Widget> pages = [
-  DishesPage(),
-  DishesPage(),
-  DishesPage(),
-  DishesPage(),
+  const DishesPage(),
+  const DishesPage(),
+  const DishesPage(),
+  const DishesPage(),
 ];
 List<Lang> langs = [
   Lang("uz", true),
@@ -36,42 +36,40 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Row(
         children: [
           NavigationRail(
-            leading:langBuild(),
+            leading: langBuild(),
             minWidth: 60,
             onDestinationSelected: (int index) {
-            setState(() {
-              
-               _selectedINdex=index;
-            
-            });
+              setState(() {
+                _selectedINdex = index;
+              });
             },
             groupAlignment: 0.3,
-            
             labelType: NavigationRailLabelType.all,
             selectedIndex: _selectedINdex,
-        
             useIndicator: false,
             selectedLabelTextStyle:
                 const TextStyle(color: Colors.white, fontSize: 28),
             unselectedLabelTextStyle:
                 const TextStyle(color: Colors.white70, fontSize: 20),
             backgroundColor: const Color(0xff193B55),
-            destinations:  [
+            destinations: [
               NavigationRailDestination(
-              
-                indicatorColor: Colors.transparent,
-              
+                  indicatorColor: Colors.transparent,
                   icon: const SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("dishes".tr()))),
-              NavigationRailDestination(
-                  icon:const  SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("drinks").tr())),
+                  label:
+                      RotatedBox(quarterTurns: -1, child: Text("dishes".tr()))),
               NavigationRailDestination(
                   icon: const SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("salads".tr()))),
+                  label:
+                      RotatedBox(quarterTurns: -1, child: Text("drinks").tr())),
               NavigationRailDestination(
                   icon: const SizedBox(),
-                  label: RotatedBox(quarterTurns: -1, child: Text("fast_food".tr()))),
+                  label:
+                      RotatedBox(quarterTurns: -1, child: Text("salads".tr()))),
+              NavigationRailDestination(
+                  icon: const SizedBox(),
+                  label: RotatedBox(
+                      quarterTurns: -1, child: Text("fast_food".tr()))),
             ],
           ),
           Expanded(child: pages[_selectedINdex]),
@@ -97,75 +95,63 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  
-  
 
+  Widget langBuild() {
+    final langProvider = Provider.of<LangProvider>(context, listen: false);
 
- Widget langBuild(){
-    final langProvider=Provider.of<LangProvider>(context, listen:false);
-
-return Column(
-              children: [
-                const SizedBox(
-                  height: 160,
-                ),
-
-                ToggleButtons(
-                  highlightColor:Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  borderColor: Colors.transparent,
-                  fillColor: Colors.transparent,
-                  direction: Axis.vertical,
-                  renderBorder: false,
-                    onPressed: (int index) {
-                    setState(() {
-                        setState(() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 160,
+        ),
+        ToggleButtons(
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          borderColor: Colors.transparent,
+          fillColor: Colors.transparent,
+          direction: Axis.vertical,
+          renderBorder: false,
+          onPressed: (int index) {
+            setState(() {
+              setState(() {
                 for (var element in langs) {
                   element.isActive = false;
-                
                 }
-                switch (index){
+                switch (index) {
                   case 0:
-                  {
-                    context.setLocale(const Locale("uz","UZ"));
-                    langProvider.langChanged();
-
-                  }
-                  break;
+                    {
+                      var newLocale = Locale("uz", "UZ");
+                      context.setLocale(newLocale);
+                      langProvider.langChanged();
+                      print("UZUZUZ");
+                    }
+                    break;
                   case 1:
-                  {
-                    context.setLocale(Locale("ru","RU"));
-                    langProvider.langChanged();
-
-                  }
-                  break;
+                    {
+                      var newLocale = Locale("ru", "RU");
+                      context.setLocale(newLocale);
+                      langProvider.langChanged();
+                    }
+                    break;
                   case 2:
-                  {
-                    context.setLocale(Locale("en","US"));
-                    langProvider.langChanged();
-
-                  }
-                  break;
+                    {
+                      context.setLocale(Locale("en", "US"));
+                      langProvider.langChanged();
+                    }
+                    break;
                 }
-                 langs[index].isActive = true;
-
-
-
-                        
-              }
-                        );
-                    });
-                  },
-                  isSelected: langs.map((e) => e.isActive).toList(),
-                  children: [
-                    langButton(langs[0]),
-                    langButton(langs[1]),
-                    langButton(langs[2])
-                  ],
-                ),
-              ],
-            );
- }
-
-
+                langs[index].isActive = true;
+              });
+            });
+          },
+          isSelected: langs.map((e) => e.isActive).toList(),
+          children: [
+            langButton(langs[0]),
+            langButton(langs[1]),
+            langButton(langs[2])
+          ],
+        ),
+      ],
+    );
+  }
 }

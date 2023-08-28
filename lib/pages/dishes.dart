@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restarant/consts/consts.dart';
+
 import 'package:restarant/consts/provider.dart';
 import 'package:restarant/pages/details.dart';
 
@@ -16,37 +17,31 @@ class DishesPage extends StatefulWidget {
 
 class _DishesPageState extends State<DishesPage> {
   bool isSlected = false;
-  int selectedItemIndex=0;
-  
+  int selectedItemIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-     
-    return WillPopScope(
-      onWillPop: (){
-        isSlected?
-        setState(() {
-          isSlected=false;
-
-        }):
-        exit(0);
-     return Future(() => false);
-
-        
-      },
-      child: Consumer<LangProvider>(builder: (context, data, child){
-        return   SafeArea(
+    return WillPopScope(onWillPop: () {
+      isSlected
+          ? setState(() {
+              isSlected = false;
+            })
+          : exit(0);
+      return Future(() => false);
+    }, child: Consumer<LangProvider>(builder: (context, data, child) {
+      return SafeArea(
         child: isSlected
             ? DetailsPage(selectedItemIndex)
             : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                   Text("title".tr()),
+                    Text("title".tr()),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: GridView.builder(
-                            itemCount: meals.length,
+                            itemCount: getMeal().length,
                             scrollDirection: Axis.vertical,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -55,7 +50,7 @@ class _DishesPageState extends State<DishesPage> {
                                     crossAxisSpacing: 8,
                                     mainAxisSpacing: 10),
                             itemBuilder: (BuildContext context, int index) {
-                              return card(meals[index], context, index);
+                              return card(getMeal()[index], context, index);
                             }),
                       ),
                     ),
@@ -63,15 +58,33 @@ class _DishesPageState extends State<DishesPage> {
                 ),
               ),
       );
-      } 
-      )
-      
-      
-    
-    );
+    }));
   }
 
-  Widget card(Meal meal, contex, index) {
+  List<Meal> getMeal() {
+    switch (context.locale.toString()) {
+      case "uz_Uz":
+        {
+          return mealsUz;
+        }
+      case "ru_Ru":
+        {
+          return mealsRu;
+        }
+      case "en_Us":
+        {
+          return mealsEn;
+        }
+      default:
+        return mealsRu;
+    }
+  }
+
+  Widget card(
+    Meal meal,
+    contex,
+    index,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Stack(
@@ -84,7 +97,7 @@ class _DishesPageState extends State<DishesPage> {
             elevation: 48,
             child: Container(
               decoration: BoxDecoration(
-                  color: Color(meal.bannerColor),
+                  color: Color(getMeal()[index].bannerColor),
                   borderRadius: BorderRadius.circular(20)),
               height: 360,
               width: 230,
@@ -106,22 +119,22 @@ class _DishesPageState extends State<DishesPage> {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text(meal.type),
+                        Text(getMeal()[index].type),
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(meal.name,
+                    Text(getMeal()[index].name,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Color(0xff1E2022))),
-                      Spacer(),
+                    const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
+                        Text(
                           "cost".tr(),
                           style:
                               TextStyle(fontSize: 17, color: Color(0xff1E2022)),
@@ -171,29 +184,32 @@ class _DishesPageState extends State<DishesPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 10,),
-                  
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [ 
+                      children: [
                         SizedBox(
                           width: 50,
                           height: 50,
                           child: Image.asset('assets/plus.png'),
                         ),
                         FloatingActionButton.extended(
-                        backgroundColor:Color(0xff175B8F),
-
-
-                          label: Text("more".tr(), style: TextStyle(color: Colors.white, ),),
-                          
-                          
-                          onPressed: (){
+                          backgroundColor: Color(0xff175B8F),
+                          label: Text(
+                            "more".tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
                             setState(() {
-                              isSlected=true;
-                              selectedItemIndex=index;
+                              isSlected = true;
+                              selectedItemIndex = index;
                             });
-                          },)
+                          },
+                        )
                         // InkWell(
                         //   child: SizedBox(
                         //     height: 40,
@@ -217,8 +233,8 @@ class _DishesPageState extends State<DishesPage> {
             top: -20,
             right: -20,
             height: 140,
-            width: 140,
-            child: Image.asset(meal.imageUrl),
+            width: 136,
+            child: Image.asset(getMeal()[index].imageUrl),
           ),
         ],
       ),

@@ -10,11 +10,11 @@ import 'package:restarant/consts/provider.dart';
 import 'home_page.dart';
 
 void main() async{ 
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await EasyLocalization.ensureInitialized();
 
 runApp(EasyLocalization(
-    supportedLocales: [
+    supportedLocales:const [
       Locale('en', 'US'),
   
       Locale('uz', 'UZ'),
@@ -30,7 +30,7 @@ runApp(EasyLocalization(
     
   ));}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { 
   const MyApp({super.key});
 
   // This widget is the root of your application.
