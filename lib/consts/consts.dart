@@ -25,12 +25,13 @@ class Meal {
       required this.ingCount,
       required this.bannerColor,
       required this.cost});
+
+  static getMeal() {}
 }
 
 List<Meal> mealsUz= [
   Meal(
-    details: "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники.Не беда, если руки растут из нужного места, шашлык \n\nможно приготовить из того что оставили нам эти коршуны. Будем готовить бараньи ребрышки. Не те кусочки, где больше всего мяса, а те кусочки, которые остались после налета саранчи",
-
+details: "Menga nima deyishmasin, eng mazali kabob qo'zi go'shtidan chiqadi. Haqiqatan ham bir kamchilik bor. Bozorda oddiy qo'zi go'shtini sotib olishning iloji yo'q, hamma kabobchilar uni tokdan sotib olishadi. Farqi yo'q. qo'llar to'g'ri joydan o'sadi, kabob \n\nBu uçurtmalar bizga qoldirgan narsadan tayyorlanishi mumkin. Qo'zi qovurg'alarini pishiramiz. Eng ko'p go'shtli bo'laklarni emas, balki chigirtka hujumidan keyin qolgan bo'laklarni",
     id: 1,
     type: "Kavkazsky",
     name: "Qo'zi qovurg'asining Kavkaz shish kebabi",
@@ -201,8 +202,7 @@ List<Meal> mealsRu = [
 ];
 List<Meal> mealsEn= [
   Meal(
-    details: "Что бы мне не говорили, а самый вкусный шашлык получается из баранины. Есть правда один минус. На базаре невозможно купить нормальную баранину, все скупают на корню шашлычники.Не беда, если руки растут из нужного места, шашлык \n\nможно приготовить из того что оставили нам эти коршуны. Будем готовить бараньи ребрышки. Не те кусочки, где больше всего мяса, а те кусочки, которые остались после налета саранчи",
-
+   details: "No matter what they tell me, the most delicious kebab comes from lamb. There is really one drawback. It’s impossible to buy normal lamb at the market, all the kebab makers buy it on the vine. It doesn’t matter, if your hands grow from the right place, kebab \n\ncan be made from What these kites left us. We will cook lamb ribs. Not those pieces with the most meat, but those pieces that remained after the locust attack,",
     id: 1,
     type: "Kavkazsky",
     name: "Caucasian shish kebab of lamb ribs",

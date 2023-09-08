@@ -23,10 +23,10 @@ runApp(EasyLocalization(
     path: 'assets/translation',
     child: MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>LangProvider())
+        ChangeNotifierProvider(create: (_)=>MainProvider())
       ],
       
-      child: MyApp()),
+      child:const  MyApp()),
     
   ));}
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+     
       theme: ThemeData(
       fontFamily: "Manrope",
         // This is the theme of your application.
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true, 
       ),
-      home:const  MyHomePage(),
+      home: const  MyHomePage(),
     );
   }
 }
@@ -77,7 +77,7 @@ class SplashScreenState extends State<MyHomePage> {
   @override  
   void initState() {  
     super.initState();  
-    Timer(const Duration(seconds: 3),  
+    Timer(const Duration(seconds: 1),  
             ()=>Navigator.pushReplacement(context,  
             MaterialPageRoute(builder:  
                 (context) => const HomeScreen()  
